@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>弹幕</title>
+</head>
+<style type="text/css">
+button{
+	border:1px solid #ccc;
+	padding:8px 20px; 
+	margin-left: 10px;
+}
+input{
+	border-radius:5px;
+	height:30px;
+	border:1px solid #ccc
+}
+.container{
+	width: 1200px;
+	margin:0 auto;
+	position: relative;
+}
+#show-container{
+	height: 500px;
+	width: 1000px;
+	border:1px solid #ccc;
+	position: relative;
+	overflow: hidden;
+	margin: 0 auto;
+}
+#btn-container{
+	text-align: center;
+	margin-top:20px;
+}
+#show-container span{
+	position: absolute;
+	left:100%; 
+	 white-space:nowrap;
+	animation: barrage 8s linear;
+}
+#content-container{
+	position: absolute;
+    top: 0;
+    right: -103px;
+    width: 200px;
+    border:1px solid #ccc;
+    height: 500px;
+    
+   
+}
+#content-container p{
+	text-align:center;
+	border-bottom: 1px solid #ccc;
+	padding: 10px 0;
+	margin:0;
+}
+#content{
+	height: 440px;
+	overflow: auto;
+	margin: 10px 0;
+}
+#content span{
+	display: block;
+	font-size: 12px;
+	word-wrap: break-word;
+	padding: 4px;
+
+}
+ /*滚动条样式*/
+#content::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 6px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+}
+#content::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    background: rgba(0,0,0,0.2);
+}
+#content::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    border-radius: 0;
+    background: rgba(0,0,0,0.1);
+}
+@keyframes barrage {
+  from {
+    left:100%;
+    transform:translate3d(0,0,0);  
+  }
+  to {
+    left:0;
+    transform:translate3d(-100%,0,0);  
+  }
+}
+</style>
+<body>
+<div class="container">
+<div id="show-container"></div>
+<div id="content-container"><p>弹幕列表</p><div id="content"></div></div>
+<div id="btn-container"><input type="text" id="txt"><button type="button" id="send">发送</button></div>
+</div>
+</body>
+<script type="text/javascript">
+var container =document.getElementById('show-container');
+var ele = document.getElementById('txt');
+var btn = document.getElementById('send');
+var list =document.getElementById('content');
+btn.onclick = function(){
+	getText();
+}
+function getText(){
+	var r=Math.floor(Math.random()*256);
+    var g=Math.floor(Math.random()*256);
+    var b=Math.floor(Math.random()*256);  
+	var color = "rgb("+r+','+g+','+b+")";
+	var span = document.createElement('span');
+	var txt =ele.value;
+	span.innerHTML = txt ;
+	span.style.color = color ;
+	span.style.top = Math.random()*100.315 +'px';
+	//console.log(txt);
+	container.appendChild(span);
+	var li = document.createElement('span');
+	li.innerHTML = '匿名：'+txt ;
+	list.appendChild(li);
+	//console.log(Width);
+	document.getElementById('content').scrollTop=document.getElementById('content').scrollHeight;
+
+}
+</script>
+</html>
